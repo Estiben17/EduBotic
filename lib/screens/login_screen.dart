@@ -35,10 +35,10 @@ class _LoginScreenState extends State<LoginScreen> {
     
     if (user != null) {
       // Navegar al home
-      print('✅ Login exitoso: ${user.email}');
+      print(' Login exitoso: ${user.email}');
     } else {
       // Mostrar error
-      print('❌ Error en login');
+      print(' Error en login');
     }
   }
 
