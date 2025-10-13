@@ -1,6 +1,8 @@
-# ava_platform
+# EduBotic
+Plataforma educativa
 
-A new Flutter project.
+## Descripción del Proyecto
+Proyecto desarrollado en Flutter para una plataforma educativa.
 
 ## Getting Started
 
