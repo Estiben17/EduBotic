@@ -3,7 +3,12 @@ import '../services/auth_service.dart';
 import '../utils/constants.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final bool initialShowRegister;
+
+  const LoginScreen({
+    super.key,
+    this.initialShowRegister = false,
+  });
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -19,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _showRegister = false;
 
   void _login() async {
-    setState(() => _isLoading = true);
+    setState(() => _isLoading = true);  
     
     final user = await _authService.signInWithEmail(
       _emailController.text.trim(),
@@ -53,6 +58,13 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       print('❌ Error en registro');
     }
+  }
+
+  @override
+  
+  void initState() {
+    super.initState();
+    _showRegister = widget.initialShowRegister;
   }
 
   @override

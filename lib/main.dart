@@ -1,9 +1,8 @@
+import 'package:ava_platform/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
-import 'screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +31,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: const LoginScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }
