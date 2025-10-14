@@ -185,7 +185,7 @@ class WelcomeScreen extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
+                backgroundColor: Color.fromRGBO(27, 120, 160, 1),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -196,7 +196,7 @@ class WelcomeScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(37, 38, 39, 1),
+                  color: Color.fromRGBO(255, 255, 255, 1),
                 ),
               ),
             ),
@@ -231,7 +231,7 @@ class WelcomeScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Color.fromRGBO(27, 120, 160, 1),
                 ),
               ),
             ),
