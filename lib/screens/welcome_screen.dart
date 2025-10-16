@@ -1,3 +1,4 @@
+import 'package:ava_platform/screens/comenzar_screen.dart';
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
 
@@ -180,7 +181,7 @@ class WelcomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const LoginScreen(initialShowRegister: true),
+                    builder: (context) => const ComenzarScreen(),
                   ),
                 );
               },
