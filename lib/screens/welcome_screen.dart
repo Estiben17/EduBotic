@@ -1,4 +1,5 @@
 import 'package:ava_platform/screens/comenzar_screen.dart';
+import 'package:ava_platform/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
 
@@ -11,7 +12,7 @@ class WelcomeScreen extends StatelessWidget {
     final isMobile = screenWidth < 600;
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(37, 38, 39, 1),
+      backgroundColor: AppConstants.darkBackground,
       body: SafeArea(
         child: isMobile ? _buildMobileLayout(context) : _buildDesktopLayout(context),
       ),
@@ -50,14 +51,14 @@ class WelcomeScreen extends StatelessWidget {
     return Container(
       key: const Key('imagenContainer'),
       decoration: const BoxDecoration(
-        color: Color.fromRGBO(37, 38, 39, 1),
+        color: AppConstants.darkBackground,
       ),
       child: Center(
         child: Container(
           width: 350,
           height: 350,
           decoration: BoxDecoration(
-            color: const Color.fromRGBO(50, 51, 52, 1),
+            color: AppConstants.darkContainer,
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
@@ -73,7 +74,6 @@ class WelcomeScreen extends StatelessWidget {
               "assets/images/edubotic.png",
               fit: BoxFit.contain,
               errorBuilder: (context, error, stackTrace) {
-                // Si hay error, mostrar el fallback
                 return _buildImageFallback();
               },
             ),
@@ -85,7 +85,7 @@ class WelcomeScreen extends StatelessWidget {
 
   Widget _buildImageFallback() {
     return Container(
-      color: const Color.fromRGBO(50, 51, 52, 1),
+      color: AppConstants.darkContainer,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -123,7 +123,6 @@ class WelcomeScreen extends StatelessWidget {
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
-              // Botón para debug
               debugPrint('Intentando cargar: assets/images/edubotic.png');
             },
             style: ElevatedButton.styleFrom(
@@ -144,7 +143,7 @@ class WelcomeScreen extends StatelessWidget {
       key: const Key('rellenoContainer'),
       padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 60.0),
       decoration: const BoxDecoration(
-        color: Color.fromRGBO(37, 38, 39, 1),
+        color: AppConstants.darkBackground,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -186,7 +185,7 @@ class WelcomeScreen extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromRGBO(27, 120, 160, 1),
+                backgroundColor: AppConstants.welcomePrimary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -197,7 +196,7 @@ class WelcomeScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(255, 255, 255, 1),
+                  color: AppConstants.welcomeWhite,
                 ),
               ),
             ),
@@ -232,7 +231,7 @@ class WelcomeScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(27, 120, 160, 1),
+                  color: AppConstants.welcomePrimary,
                 ),
               ),
             ),
