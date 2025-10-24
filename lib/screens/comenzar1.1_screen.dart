@@ -12,138 +12,165 @@ class Comenzar11Screen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppConstants.darkBackground,
-      appBar: AppBar(
-        backgroundColor: AppConstants.darkBackground,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        title: const Text(
-          'Selecciona tu nivel',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
       body: SafeArea(
         child: Column(
           children: [
-            // Contenedor del contenido principal - ocupa el espacio disponible
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(isMobile ? 16 : 24),
-                decoration: BoxDecoration(
-                  color: AppConstants.darkBackground,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                margin: EdgeInsets.all(isMobile ? 12 : 16),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Percent Indicator en la parte superior - CORREGIDO
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 30),
-                        child: FractionallySizedBox(
-                          widthFactor: 0.95, // Ocupa 95% del ancho disponible
-                          child: LinearPercentIndicator(
-                            animation: true,
-                            lineHeight: 40.0,
-                            animationDuration: 1000,
-                            percent: 0.25,
-                            center: const Text(
-                              "25% Completado",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            barRadius: const Radius.circular(12),
-                            progressColor: AppConstants.welcomePrimary,
-                            backgroundColor: AppConstants.darkContainer,
-                            linearStrokeCap: LinearStrokeCap.roundAll,
-                          ),
-                        ),
-                      ),
-                      
-                      // Chat bubble - Mensaje de Lufiboti
-                      _buildChatBubble(
-                        '¡Excelente! Para personalizar tu experiencia, por favor selecciona tu nivel de conocimiento en robótica educativa:',
-                        isBot: true,
-                      ),
-                      SizedBox(height: isMobile ? 30 : 40),
-                      
-                      // Contenedor centrado para las opciones
-                      Center(
-                        child: Container(
-                          width: 470,
-                          child: Column(
-                            children: [
-                              // Opciones de nivel de experiencia
-                              _buildExperienceOption(
-                                context,
-                                title: 'ALGO DE EXPERIENCIA, PERO NECESITO REPASAR',
-                                description: 'He trabajado con robótica antes, pero quiero reforzar mis conocimientos básicos.',
-                                onTap: () {
-                                  _navigateToNextScreen(context, 'Principiante con experiencia');
-                                },
-                              ),
-                              SizedBox(height: isMobile ? 20 : 25),
-                              
-                              _buildExperienceOption(
-                                context,
-                                title: 'CONFIADO EN MIS HABILIDADES EN ROBOTICA EDUCATIVA',
-                                description: 'Tengo buena base y quiero profundizar en conceptos más avanzados.',
-                                onTap: () {
-                                  _navigateToNextScreen(context, 'Intermedio');
-                                },
-                              ),
-                              SizedBox(height: isMobile ? 20 : 25),
-                              
-                              _buildExperienceOption(
-                                context,
-                                title: 'EXPERTO EN ROBOTICA EDUCATIVA',
-                                description: 'Tengo amplia experiencia y busco contenido especializado y avanzado.',
-                                onTap: () {
-                                  _navigateToNextScreen(context, 'Avanzado');
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+            // CONTENEDOR 1: BARRA DE PROGRESO
+            Container(
+              margin: const EdgeInsets.only(top: 8),
+              padding: EdgeInsets.symmetric(
+                horizontal: isMobile ? 12 : 20,
+                vertical: isMobile ? 4 : 4,
+              ),
+              child: FractionallySizedBox(
+                widthFactor: 1.0,
+                child: LinearPercentIndicator(
+                  animation: true,
+                  lineHeight: 27.0,
+                  animationDuration: 1000,
+                  percent: 0.20,
+                  center: const Text(
+                    "25% Completado",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
+                  barRadius: const Radius.circular(12),
+                  progressColor: AppConstants.welcomePrimary,
+                  backgroundColor: AppConstants.darkContainer,
+                  linearStrokeCap: LinearStrokeCap.roundAll,
                 ),
               ),
             ),
 
-            // Divisor blanco
+            // CONTENEDOR 2: CONTENIDO PRINCIPAL
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.all(isMobile ? 16 : 24),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Conversación con el robot
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Imagen del robot
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppConstants.welcomePrimary.withOpacity(0.3),
+                            border: Border.all(
+                              color: AppConstants.welcomePrimary,
+                              width: 2,
+                            ),
+                          ),
+                          child: ClipOval(
+                            child: Image.asset(
+                              'assets/images/robot_avatar.png',
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        
+                        // Mensaje del robot
+                        Container(
+                          constraints: BoxConstraints(
+                            maxWidth: screenWidth * 0.7,
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          decoration: BoxDecoration(
+                            color: AppConstants.welcomePrimary.withOpacity(0.2),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                              bottomLeft: Radius.circular(5),
+                              bottomRight: Radius.circular(20),
+                            ),
+                            border: Border.all(
+                              color: AppConstants.welcomePrimary,
+                              width: 1.5,
+                            ),
+                          ),
+                          child: const Text(
+                            '¡Excelente! Para personalizar tu experiencia, por favor selecciona tu nivel de conocimiento en robótica educativa:',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                              height: 1.5,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: isMobile ? 30 : 40),
+                    
+                    // Opciones de nivel
+                    Center(
+                      child: SizedBox(
+                        width: isMobile ? screenWidth * 0.9 : 470,
+                        child: Column(
+                          children: [
+                            _buildExperienceOption(
+                              title: 'PRINCIPIANTE COMPLETO',
+                              description: 'Estoy empezando desde cero en robótica educativa',
+                              onTap: () => _navigateToNextScreen(context, 'Principiante Completo'),
+                            ),
+                            SizedBox(height: isMobile ? 20 : 25),
+                            
+                            _buildExperienceOption(
+                              title: 'ALGO DE EXPERIENCIA, PERO NECESITO REPASAR',
+                              description: 'He trabajado con robótica antes, pero quiero reforzar mis conocimientos básicos.',
+                              onTap: () => _navigateToNextScreen(context, 'Algo de Experiencia'),
+                            ),
+                            SizedBox(height: isMobile ? 20 : 25),
+                            
+                            _buildExperienceOption(
+                              title: 'CONFIADO EN MIS HABILIDADES EN ROBOTICA EDUCATIVA',
+                              description: 'Tengo buena base y quiero profundizar en conceptos más avanzados.',
+                              onTap: () => _navigateToNextScreen(context, 'Confiado'),
+                            ),
+                            SizedBox(height: isMobile ? 20 : 25),
+                            
+                            _buildExperienceOption(
+                              title: 'EXPERTO EN ROBOTICA EDUCATIVA',
+                              description: 'Tengo amplia experiencia y busco contenido especializado y avanzado.',
+                              onTap: () => _navigateToNextScreen(context, 'Experto'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            // Divisor blanco (no es Container, es solo un Divider)
             Container(
               height: 2,
               width: double.infinity,
               color: Colors.white,
             ),
 
-            // Contenedor del botón
+            // CONTENEDOR 3: BOTÓN CONTINUAR
             Container(
-              width: double.infinity,
               padding: EdgeInsets.symmetric(
                 horizontal: isMobile ? 16 : 24,
                 vertical: isMobile ? 10 : 15,
               ),
-              decoration: BoxDecoration(
-                color: AppConstants.darkBackground,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   SizedBox(
                     width: 300,
                     height: 56,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // Navegación a la siguiente pantalla
-                        _navigateToDefaultScreen(context);
-                      },
+                      onPressed: () => _navigateToDefaultScreen(context),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppConstants.welcomePrimary,
                         shape: RoundedRectangleBorder(
@@ -170,10 +197,8 @@ class Comenzar11Screen extends StatelessWidget {
     );
   }
 
-  // === MÉTODOS NECESARIOS ===
-
-  Widget _buildExperienceOption(
-    BuildContext context, {
+  // Widget para las opciones de experiencia
+  Widget _buildExperienceOption({
     required String title,
     required String description,
     required VoidCallback onTap,
@@ -184,8 +209,7 @@ class Comenzar11Screen extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
         child: Container(
-          width: 470, // Ancho fijo según diseño
-          height: 90,  // Alto fijo según diseño
+          height: 90,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: AppConstants.darkContainer,
@@ -256,10 +280,8 @@ class Comenzar11Screen extends StatelessWidget {
   }
 
   void _navigateToNextScreen(BuildContext context, String nivel) {
-    // Aquí puedes navegar a la siguiente pantalla según el nivel seleccionado
     print('Nivel seleccionado: $nivel');
     
-    // Por ahora solo muestra un snackbar
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Nivel seleccionado: $nivel'),
@@ -269,45 +291,12 @@ class Comenzar11Screen extends StatelessWidget {
   }
 
   void _navigateToDefaultScreen(BuildContext context) {
-    // Navegación por defecto cuando se presiona el botón CONTINUAR
     print('Navegación por defecto');
     
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Continuando con navegación por defecto'),
         backgroundColor: AppConstants.welcomePrimary,
-      ),
-    );
-  }
-
-  // Widget para crear burbujas de chat
-  Widget _buildChatBubble(String text, {required bool isBot}) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: isBot
-            ? AppConstants.welcomePrimary.withOpacity(0.3)
-            : AppConstants.welcomePrimary,
-        borderRadius: BorderRadius.only(
-          topLeft: const Radius.circular(20),
-          topRight: const Radius.circular(20),
-          bottomLeft: Radius.circular(isBot ? 5 : 20),
-          bottomRight: Radius.circular(isBot ? 20 : 5),
-        ),
-        border: Border.all(
-          color: AppConstants.welcomePrimary,
-          width: 1.5,
-        ),
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 14,
-          color: Colors.white,
-          height: 1.5,
-          fontWeight: FontWeight.w500,
-        ),
-        textAlign: TextAlign.center,
       ),
     );
   }
