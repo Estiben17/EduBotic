@@ -74,299 +74,159 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Botón Atrás
-              IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back, color: Colors.black),
-                padding: EdgeInsets.zero,
-                constraints: const BoxConstraints(),
+              // Botón Atrás - SIMPLE como en el mockup
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                  size: 24,
+                ),
               ),
               const SizedBox(height: 30),
-              
-              // Título principal - SIMPLIFICADO
-              Center(
-                child: Text(
-                  _showRegister ? 'CREAR CUENTA' : 'INICIAR SESIÓN',
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              
-              Center(
-                child: Text(
-                  _showRegister 
-                    ? 'Regístrate en EduBotic'
-                    : 'Bienvenido a la plataforma',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 40),
-              
-              // Botones ACCEDER/REGISTRARSE - ARRIBA DE LOS CAMPOS
+
+              // Botones ACCEDER y REGISTRARSE - EXACTAMENTE como en el mockup
               Row(
                 children: [
                   Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _showRegister = false;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: _showRegister 
-                            ? Colors.grey[300] 
-                            : Color(AppConstants.primaryColor),
-                        foregroundColor: _showRegister 
-                            ? Colors.grey 
-                            : Colors.white,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: _showRegister 
+                                ? Colors.grey[300]! 
+                                : Color(AppConstants.primaryColor),
+                            width: 2,
+                          ),
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      child: const Text('ACCEDER'),
+                      child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _showRegister = false;
+                          });
+                        },
+                        style: TextButton.styleFrom(
+                          foregroundColor: _showRegister 
+                              ? Colors.grey 
+                              : Color(AppConstants.primaryColor),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                        ),
+                        child: const Text(
+                          'ACCEDER',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                  const SizedBox(width: 16),
                   Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _showRegister = true;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: _showRegister 
-                            ? Color(AppConstants.primaryColor) 
-                            : Colors.grey[300],
-                        foregroundColor: _showRegister 
-                            ? Colors.white 
-                            : Colors.grey,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: _showRegister 
+                                ? Color(AppConstants.primaryColor) 
+                                : Colors.grey[300]!,
+                            width: 2,
+                          ),
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      child: const Text('REGISTRARSE'),
+                      child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _showRegister = true;
+                          });
+                        },
+                        style: TextButton.styleFrom(
+                          foregroundColor: _showRegister 
+                              ? Color(AppConstants.primaryColor) 
+                              : Colors.grey,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                        ),
+                        child: const Text(
+                          'REGISTRARSE',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 30),
-              
-              // Campos del formulario
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      if (_showRegister)
-                        _buildTextField(
-                          controller: _nameController,
-                          hintText: 'Nombre completo',
-                        ),
-                      
-                      if (_showRegister) const SizedBox(height: 20),
-                      
-                      _buildTextField(
-                        controller: _emailController,
-                        hintText: 'Dirección de correo',
-                      ),
-                      const SizedBox(height: 20),
-                      
-                      _buildTextField(
-                        controller: _passwordController,
-                        hintText: 'Contraseña',
-                        isPassword: true,
-                      ),
-                      const SizedBox(height: 30),
-                      
-                      // Botón principal de acción
-                      _isLoading
-                          ? const CircularProgressIndicator()
-                          : ElevatedButton(
-                              onPressed: _showRegister ? _register : _login,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(AppConstants.primaryColor),
-                                foregroundColor: Colors.white,
-                                minimumSize: const Size(double.infinity, 56),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                elevation: 2,
-                              ),
-                              child: Text(
-                                _showRegister ? 'CREAR CUENTA' : 'INICIAR SESIÓN',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                      
-                      const SizedBox(height: 20),
-                      
-                      // Enlace "Olvidé mi contraseña" - SOLO EN MODO LOGIN
-                      if (!_showRegister)
-                        Center(
-                          child: TextButton(
-                            onPressed: () {
-                              // TODO: Implementar recuperación de contraseña
-                            },
-                            child: const Text(
-                              'OLVIDÉ MI CONTRASEÑA',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
-                      
-                      const SizedBox(height: 40),
-                      
-                      // Separador
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Container(height: 1, color: Colors.grey[300]),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
-                              'O continúa con',
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(height: 1, color: Colors.grey[300]),
-                          ),
-                        ],
-                      ),
-                      
-                      const SizedBox(height: 30),
-                      
-                      // Botones de redes sociales
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _buildSocialButton(
-                            icon: 'G',
-                            label: 'Google',
-                            onPressed: () {
-                              // TODO: Implementar login con Google
-                            },
-                          ),
-                          const SizedBox(width: 20),
-                          _buildSocialButton(
-                            icon: 'M',
-                            label: 'Microsoft',
-                            onPressed: () {
-                              // TODO: Implementar login con Microsoft
-                            },
-                          ),
-                        ],
-                      ),
-                      
-                      const SizedBox(height: 40),
-                      
-                      // Términos y condiciones
-                      const Text(
-                        'AL CONTINUAR ACEPTAS NUESTROS TÉRMINOS\nDE USO Y POLÍTICA DE PRIVACIDAD',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12,
-                          height: 1.4,
-                        ),
-                      ),
-                    ],
+
+              // Campos de texto - SIMPLES como en el mockup
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(
+                  hintText: 'DIRECCIÓN DE CORREO',
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14,
                   ),
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
+                  contentPadding: EdgeInsets.symmetric(vertical: 12),
                 ),
               ),
+              const SizedBox(height: 20),
+              
+              TextField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  hintText: 'CONTRASEÑA',
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14,
+                  ),
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
+                  contentPadding: EdgeInsets.symmetric(vertical: 12),
+                ),
+              ),
+              const SizedBox(height: 30),
+
+              // Botón principal
+              _isLoading
+                  ? const CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: _showRegister ? _register : _login,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(AppConstants.primaryColor),
+                        foregroundColor: Colors.white,
+                        minimumSize: const Size(double.infinity, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        _showRegister ? 'CREAR CUENTA' : 'INICIAR SESIÓN',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+
+              // El resto lo hacemos en la siguiente parte...
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String hintText,
-    bool isPassword = false,
-  }) {
-    return TextField(
-      controller: controller,
-      obscureText: isPassword,
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: const TextStyle(color: Colors.grey),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.grey),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Color(AppConstants.primaryColor)),
-        ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-        filled: true,
-        fillColor: Colors.grey[50],
-      ),
-    );
-  }
-
-  Widget _buildSocialButton({
-    required String icon,
-    required String label,
-    required VoidCallback onPressed,
-  }) {
-    return Column(
-      children: [
-        InkWell(
-          onTap: onPressed,
-          borderRadius: BorderRadius.circular(50),
-          child: Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.grey[300]!),
-              color: Colors.grey[50],
-            ),
-            child: Center(
-              child: Text(
-                icon,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.grey,
-            fontSize: 12,
-          ),
-        ),
-      ],
     );
   }
 }
