@@ -118,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           bottom: BorderSide(
                             color: _showRegister 
                                 ? Colors.grey[300]! 
-                                : Color(AppConstants.primaryColor),
+                                : Colors.blue,
                             width: 2,
                           ),
                         ),
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextButton.styleFrom(
                           foregroundColor: _showRegister 
                               ? Colors.grey 
-                              : Color(AppConstants.primaryColor),
+                              : Colors.blue,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
                         child: const Text(
@@ -151,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         border: Border(
                           bottom: BorderSide(
                             color: _showRegister 
-                                ? Color(AppConstants.primaryColor) 
+                                ? Colors.blue 
                                 : Colors.grey[300]!,
                             width: 2,
                           ),
@@ -165,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         style: TextButton.styleFrom(
                           foregroundColor: _showRegister 
-                              ? Color(AppConstants.primaryColor) 
+                              ? Colors.blue 
                               : Colors.grey,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
