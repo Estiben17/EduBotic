@@ -67,23 +67,46 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Botón Atrás - SIMPLE como en el mockup
-              GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.black,
-                  size: 24,
-                ),
+    backgroundColor: Colors.grey[100],
+    body: Center(
+      child: Container(
+        width: 400,
+        margin: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(32.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Botón Atrás
+            GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: const Row(
+                children: [
+                  Icon(Icons.arrow_back, color: Colors.black, size: 20),
+                  SizedBox(width: 8),
+                  Text(
+                    'ATRAS',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 30),
+            ),
+            const SizedBox(height: 30),
 
               // Botones ACCEDER y REGISTRARSE - EXACTAMENTE como en el mockup
               Row(
