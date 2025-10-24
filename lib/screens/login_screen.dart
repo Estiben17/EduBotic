@@ -34,9 +34,9 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _isLoading = false);
     
     if (user != null) {
-      print('✅ Login exitoso: ${user.email}');
+      print('Login exitoso: ${user.email}');
     } else {
-      print('❌ Error en login');
+      print('Error en login');
     }
   }
 
@@ -52,9 +52,9 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _isLoading = false);
     
     if (user != null) {
-      print('✅ Registro exitoso: ${user.name}');
+      print(' Registro exitoso: ${user.name}');
     } else {
-      print('❌ Error en registro');
+      print(' Error en registro');
     }
   }
 
@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    backgroundColor: Colors.grey[100],
+    backgroundColor: Color (0xFF1E88E5),
     body: Center(
       child: Container(
         width: 400,
@@ -229,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   : ElevatedButton(
                       onPressed: _showRegister ? _register : _login,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(AppConstants.primaryColor),
+                        backgroundColor: Color(0xFF1976D2),
                         foregroundColor: Colors.white,
                         minimumSize: const Size(double.infinity, 50),
                         shape: RoundedRectangleBorder(
