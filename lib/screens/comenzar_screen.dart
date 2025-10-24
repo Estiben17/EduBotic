@@ -1,16 +1,17 @@
+import 'package:ava_platform/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:ava_platform/screens/comenzar1.1_screen.dart';
 
 class ComenzarScreen extends StatelessWidget {
   const ComenzarScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 600;
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(37, 38, 39, 1),
+      backgroundColor: AppConstants.darkBackground,
       body: SafeArea(
         child: Column(
           children: [
@@ -20,8 +21,7 @@ class ComenzarScreen extends StatelessWidget {
                 width: double.infinity,
                 padding: EdgeInsets.all(isMobile ? 16 : 24),
                 decoration: BoxDecoration(
-                  color: const Color.fromRGBO(37, 38, 39, 1),
-                  
+                  color: AppConstants.darkBackground,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 margin: EdgeInsets.all(isMobile ? 12 : 16),
@@ -83,8 +83,8 @@ class ComenzarScreen extends StatelessWidget {
                 horizontal: isMobile ? 16 : 24,
                 vertical: isMobile ? 10 : 15,
               ),
-              decoration: const BoxDecoration(
-                color: Color.fromRGBO(37, 38, 39, 1),
+              decoration: BoxDecoration(
+                color: AppConstants.darkBackground,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -94,10 +94,16 @@ class ComenzarScreen extends StatelessWidget {
                     height: 56,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Navegación a siguiente pantalla
+                        // Navegación a comenzar1.1_screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Comenzar11Screen(),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromRGBO(27, 120, 160, 1),
+                        backgroundColor: AppConstants.welcomePrimary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -108,7 +114,7 @@ class ComenzarScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: AppConstants.welcomeWhite,
                         ),
                       ),
                     ),
@@ -128,8 +134,8 @@ class ComenzarScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         color: isBot
-            ? const Color.fromRGBO(27, 120, 160, 1).withOpacity(0.3)
-            : const Color.fromRGBO(27, 120, 160, 1),
+            ? AppConstants.welcomePrimary.withOpacity(0.3)
+            : AppConstants.welcomePrimary,
         borderRadius: BorderRadius.only(
           topLeft: const Radius.circular(20),
           topRight: const Radius.circular(20),
@@ -137,7 +143,7 @@ class ComenzarScreen extends StatelessWidget {
           bottomRight: Radius.circular(isBot ? 20 : 5),
         ),
         border: Border.all(
-          color: const Color.fromRGBO(27, 120, 160, 1),
+          color: AppConstants.welcomePrimary,
           width: 1.5,
         ),
       ),

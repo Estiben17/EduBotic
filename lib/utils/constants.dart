@@ -10,7 +10,7 @@ class AppConstants {
   static const secondaryColor = 0xFF2196F3;
   static const accentColor = 0xFFFFC107;
   
-  // Nuevos colores para WelcomeScreen y otras pantallas
+  // Colores para la app
   static const Color darkBackground = Color.fromRGBO(37, 38, 39, 1);
   static const Color darkContainer = Color.fromRGBO(50, 51, 52, 1);
   static const Color welcomePrimary = Color.fromRGBO(27, 120, 160, 1);
