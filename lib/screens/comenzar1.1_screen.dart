@@ -1,9 +1,17 @@
 import 'package:ava_platform/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:ava_platform/screens/comenzar1.2_screen.dart';
 
-class Comenzar11Screen extends StatelessWidget {
+class Comenzar11Screen extends StatefulWidget {
   const Comenzar11Screen({super.key});
+
+  @override
+  State<Comenzar11Screen> createState() => _Comenzar11ScreenState();
+}
+
+class _Comenzar11ScreenState extends State<Comenzar11Screen> {
+  String? _selectedLevel; // Variable para almacenar la opción seleccionada
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +60,14 @@ class Comenzar11Screen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Conversación con el robot
+                    // SECCIÓN IMAGEN + MENSAJE INTEGRADOS
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Imagen del robot
+                        // IMAGEN - ahora a la izquierda del mensaje
                         Container(
-                          width: 60,
-                          height: 60,
+                          width: isMobile ? 80 : 120,
+                          height: isMobile ? 80 : 120,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: AppConstants.welcomePrimary.withOpacity(0.3),
@@ -70,38 +78,33 @@ class Comenzar11Screen extends StatelessWidget {
                           ),
                           child: ClipOval(
                             child: Image.asset(
-                              'assets/images/robot_avatar.png',
+                              'assets/images/edubotic.png',
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        const SizedBox(width: 16),
                         
-                        // Mensaje del robot
-                        Container(
-                          constraints: BoxConstraints(
-                            maxWidth: screenWidth * 0.7,
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                          decoration: BoxDecoration(
-                            color: AppConstants.welcomePrimary.withOpacity(0.2),
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                              bottomLeft: Radius.circular(5),
-                              bottomRight: Radius.circular(20),
+                        // MENSAJE - ahora a la derecha de la imagen
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                            decoration: BoxDecoration(
+                              color: AppConstants.welcomePrimary.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: AppConstants.welcomePrimary,
+                                width: 1.5,
+                              ),
                             ),
-                            border: Border.all(
-                              color: AppConstants.welcomePrimary,
-                              width: 1.5,
-                            ),
-                          ),
-                          child: const Text(
-                            '¡Excelente! Para personalizar tu experiencia, por favor selecciona tu nivel de conocimiento en robótica educativa:',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white,
-                              height: 1.5,
-                              fontWeight: FontWeight.w500,
+                            child: const Text(
+                              '¡Excelente! Para personalizar tu experiencia, por favor selecciona tu nivel de conocimiento en robótica educativa:',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                                height: 1.5,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
@@ -109,7 +112,7 @@ class Comenzar11Screen extends StatelessWidget {
                     ),
                     SizedBox(height: isMobile ? 30 : 40),
                     
-                    // Opciones de nivel
+                    // Opciones de nivel (se mantienen igual)
                     Center(
                       child: SizedBox(
                         width: isMobile ? screenWidth * 0.9 : 470,
@@ -118,28 +121,36 @@ class Comenzar11Screen extends StatelessWidget {
                             _buildExperienceOption(
                               title: 'PRINCIPIANTE COMPLETO',
                               description: 'Estoy empezando desde cero en robótica educativa',
-                              onTap: () => _navigateToNextScreen(context, 'Principiante Completo'),
+                              level: 'Principiante Completo',
+                              isSelected: _selectedLevel == 'Principiante Completo',
+                              onTap: () => _selectLevel('Principiante Completo'),
                             ),
                             SizedBox(height: isMobile ? 20 : 25),
                             
                             _buildExperienceOption(
                               title: 'ALGO DE EXPERIENCIA, PERO NECESITO REPASAR',
                               description: 'He trabajado con robótica antes, pero quiero reforzar mis conocimientos básicos.',
-                              onTap: () => _navigateToNextScreen(context, 'Algo de Experiencia'),
+                              level: 'Algo de Experiencia',
+                              isSelected: _selectedLevel == 'Algo de Experiencia',
+                              onTap: () => _selectLevel('Algo de Experiencia'),
                             ),
                             SizedBox(height: isMobile ? 20 : 25),
                             
                             _buildExperienceOption(
                               title: 'CONFIADO EN MIS HABILIDADES EN ROBOTICA EDUCATIVA',
                               description: 'Tengo buena base y quiero profundizar en conceptos más avanzados.',
-                              onTap: () => _navigateToNextScreen(context, 'Confiado'),
+                              level: 'Confiado',
+                              isSelected: _selectedLevel == 'Confiado',
+                              onTap: () => _selectLevel('Confiado'),
                             ),
                             SizedBox(height: isMobile ? 20 : 25),
                             
                             _buildExperienceOption(
                               title: 'EXPERTO EN ROBOTICA EDUCATIVA',
                               description: 'Tengo amplia experiencia y busco contenido especializado y avanzado.',
-                              onTap: () => _navigateToNextScreen(context, 'Experto'),
+                              level: 'Experto',
+                              isSelected: _selectedLevel == 'Experto',
+                              onTap: () => _selectLevel('Experto'),
                             ),
                           ],
                         ),
@@ -150,7 +161,7 @@ class Comenzar11Screen extends StatelessWidget {
               ),
             ),
 
-            // Divisor blanco (no es Container, es solo un Divider)
+            // Divisor blanco
             Container(
               height: 2,
               width: double.infinity,
@@ -170,9 +181,13 @@ class Comenzar11Screen extends StatelessWidget {
                     width: 300,
                     height: 56,
                     child: ElevatedButton(
-                      onPressed: () => _navigateToDefaultScreen(context),
+                      onPressed: _selectedLevel != null 
+                          ? () => _navigateToDefaultScreen(context)
+                          : null, // Deshabilitar si no hay selección
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppConstants.welcomePrimary,
+                        backgroundColor: _selectedLevel != null 
+                            ? AppConstants.welcomePrimary 
+                            : AppConstants.welcomePrimary.withOpacity(0.5),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -197,10 +212,21 @@ class Comenzar11Screen extends StatelessWidget {
     );
   }
 
-  // Widget para las opciones de experiencia
+  // Método para seleccionar un nivel
+  void _selectLevel(String level) {
+    setState(() {
+      _selectedLevel = level;
+    });
+    // Solo actualiza la selección, sin mostrar SnackBar
+    print('Nivel seleccionado: $level');
+  }
+
+  // Widget para las opciones de experiencia - MODIFICADO
   Widget _buildExperienceOption({
     required String title,
     required String description,
+    required String level,
+    required bool isSelected,
     required VoidCallback onTap,
   }) {
     return Material(
@@ -208,36 +234,54 @@ class Comenzar11Screen extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
-        child: Container(
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
           height: 90,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: AppConstants.darkContainer,
+            color: isSelected 
+                ? AppConstants.welcomePrimary.withOpacity(0.3) // Color cuando está seleccionado
+                : AppConstants.darkContainer,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: AppConstants.welcomePrimary.withOpacity(0.5),
-              width: 2,
+              color: isSelected 
+                  ? AppConstants.welcomePrimary // Borde más destacado cuando está seleccionado
+                  : AppConstants.welcomePrimary.withOpacity(0.5),
+              width: isSelected ? 3 : 2, // Borde más grueso cuando está seleccionado
             ),
+            boxShadow: isSelected 
+                ? [
+                    BoxShadow(
+                      color: AppConstants.welcomePrimary.withOpacity(0.3),
+                      blurRadius: 8,
+                      spreadRadius: 2,
+                    )
+                  ]
+                : [],
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Círculo de selección
-              Container(
+              // Círculo de selección - MODIFICADO
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
                 width: 20,
                 height: 20,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
+                  color: isSelected ? AppConstants.welcomePrimary : Colors.transparent,
                   border: Border.all(
                     color: AppConstants.welcomePrimary,
                     width: 2,
                   ),
                 ),
-                child: Icon(
-                  Icons.circle,
-                  color: AppConstants.welcomePrimary,
-                  size: 10,
-                ),
+                child: isSelected 
+                    ? Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: 14,
+                      )
+                    : null,
               ),
               const SizedBox(width: 12),
               
@@ -249,7 +293,7 @@ class Comenzar11Screen extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -262,9 +306,10 @@ class Comenzar11Screen extends StatelessWidget {
                     Text(
                       description,
                       style: TextStyle(
-                        color: Colors.white70,
+                        color: isSelected ? Colors.white : Colors.white70,
                         fontSize: 12,
                         height: 1.2,
+                        fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -279,25 +324,18 @@ class Comenzar11Screen extends StatelessWidget {
     );
   }
 
-  void _navigateToNextScreen(BuildContext context, String nivel) {
-    print('Nivel seleccionado: $nivel');
-    
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Nivel seleccionado: $nivel'),
-        backgroundColor: AppConstants.welcomePrimary,
-      ),
-    );
-  }
-
   void _navigateToDefaultScreen(BuildContext context) {
-    print('Navegación por defecto');
-    
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Continuando con navegación por defecto'),
-        backgroundColor: AppConstants.welcomePrimary,
+    print('Continuando con nivel: $_selectedLevel');
+
+    // Navegar a Comenzar1_2Screen
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const Comenzar12Screen(),
       ),
     );
+    
+    // Aquí puedes agregar la navegación real a la siguiente pantalla
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => NextScreen()));
   }
 }
