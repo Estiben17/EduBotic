@@ -71,7 +71,7 @@ class WelcomeScreen extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Image.asset(
-              "assets/images/edubotic.png",
+              "assets/images/edubotic.svg",
               fit: BoxFit.contain,
               errorBuilder: (context, error, stackTrace) {
                 return _buildImageFallback();
