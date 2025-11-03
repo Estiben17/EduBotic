@@ -1,7 +1,7 @@
-import 'package:ava_platform/utils/constants.dart';
+import 'package:ava_platform_web/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:ava_platform/screens/comenzar1.2_screen.dart';
+import './comenzar1.2_screen.dart';
 
 class Comenzar11Screen extends StatefulWidget {
   const Comenzar11Screen({super.key});

@@ -1,7 +1,7 @@
-import 'package:ava_platform/utils/constants.dart';
+import 'package:ava_platform_web/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:ava_platform/screens/login_screen.dart'; // Importar login_screen
+import '../auth/login_screen.dart';
 
 class Comenzar12Screen extends StatefulWidget {
   const Comenzar12Screen({super.key});
