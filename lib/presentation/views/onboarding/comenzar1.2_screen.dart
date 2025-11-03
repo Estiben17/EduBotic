@@ -1,4 +1,4 @@
-import 'package:ava_platform_web/utils/constants.dart';
+import 'package:ava_platform/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import '../auth/login_screen.dart';

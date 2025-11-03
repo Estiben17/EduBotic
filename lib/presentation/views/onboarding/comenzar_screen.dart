@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './comenzar1.1_screen.dart';
-import 'package:ava_platform_web/utils/constants.dart';
+import 'package:ava_platform/utils/constants.dart';
 
 class ComenzarScreen extends StatelessWidget {
   const ComenzarScreen({super.key});
