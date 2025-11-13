@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../viewmodels/auth_viewmodel.dart';
-import '../../../utils/constants.dart';
-import '../../../data/repositories/auth_repository.dart';
-import '../../../data/datasources/remote/firebase_auth_datasource.dart';
-import '../home/home_screen.dart'; // ✅ AÑADIR ESTA IMPORTACIÓN
+
+// Importaciones ABSOLUTAS
+import 'package:ava_platform/presentation/viewmodels/auth_viewmodel.dart';
+import 'package:ava_platform/utils/constants.dart';
+import 'package:ava_platform/data/repositories/auth_repository.dart';
+import 'package:ava_platform/data/datasources/remote/firebase_auth_datasource.dart';
+import 'package:ava_platform/presentation/views/home/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   final bool initialShowRegister;
@@ -112,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Navigator.pushReplacement(
     context,
     MaterialPageRoute(
-      builder: (context) => const MaintenanceScreen(),
+      builder: (context) => const HomeScreen(),
     ),
   );
 }

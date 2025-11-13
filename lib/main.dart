@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'presentation/views/auth/welcome_screen.dart';
-import 'presentation/viewmodels/auth_viewmodel.dart';
-import 'data/repositories/auth_repository.dart';
-import 'data/datasources/remote/firebase_auth_datasource.dart';
+
+// Importaciones ABSOLUTAS
+import 'package:ava_platform/presentation/views/auth/welcome_screen.dart'; // ✅ WelcomeScreen como inicio
+import 'package:ava_platform/presentation/viewmodels/auth_viewmodel.dart';
+import 'package:ava_platform/presentation/viewmodels/home_viewmodel.dart';
+import 'package:ava_platform/data/repositories/auth_repository.dart';
+import 'package:ava_platform/data/datasources/remote/firebase_auth_datasource.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,17 +32,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => AuthViewModel(
-        authRepository: AuthRepository(FirebaseAuthDatasource()), // ✅ Proporcionar el datasource
-      ),
+    return MultiProvider(
+      providers: [
+        Provider<FirebaseAuthDatasource>(
+          create: (_) => FirebaseAuthDatasource(),
+        ),
+        Provider<AuthRepository>(
+          create: (context) => AuthRepository(context.read<FirebaseAuthDatasource>()),
+        ),
+        ChangeNotifierProvider<AuthViewModel>(
+          create: (context) => AuthViewModel(
+            authRepository: context.read<AuthRepository>(),
+          ),
+        ),
+        ChangeNotifierProvider<HomeViewModel>(
+          create: (context) => HomeViewModel(),
+        ),
+      ],
       child: MaterialApp(
         title: 'EduBotic - Plataforma AVA',
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-          scaffoldBackgroundColor: Colors.white,
+        theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: const Color.fromRGBO(37, 38, 39, 1),
         ),
-        home: const WelcomeScreen(),
+        home: const WelcomeScreen(), // ✅ SOLO CAMBIA ESTA LÍNEA
         debugShowCheckedModeBanner: false,
       ),
     );
